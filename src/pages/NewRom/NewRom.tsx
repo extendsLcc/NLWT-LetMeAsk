@@ -7,8 +7,31 @@ import '../Home/styles.scss';
 import './styles.scss';
 
 import { Button } from "../../components/Button/Button";
+import { FormEvent, useState } from "react";
+import { database } from "../../services/firebase";
+import { useAuth } from "../../hooks/useAuth";
 
 export function NewRom() {
+
+  const { user } = useAuth();
+  const [newRoom, setNewRoom] = useState('');
+
+  async function handleCreateRoom(event: FormEvent) {
+
+    event.preventDefault();
+
+    if (newRoom.trim() === '') {
+      return;
+    }
+
+    const roomRef = database.ref('rooms');
+
+    const firebaseRoom = await roomRef.push({
+      title: newRoom,
+      authorId: user?.id
+    });
+
+  }
 
   return (
     <div id="page-auth">
@@ -21,10 +44,12 @@ export function NewRom() {
         <div className="main-content">
           <img src={logoImg} alt="LetMeAsk" />
           <h2>Criar uma nova sala</h2>
-          <form>
+          <form onSubmit={handleCreateRoom}>
             <input
               type="text"
               placeholder="Digite o nome da sala"
+              onChange={event => setNewRoom(event.target.value)}
+              value={newRoom}
             />
             <Button type="submit">Criar sala</Button>
           </form>
