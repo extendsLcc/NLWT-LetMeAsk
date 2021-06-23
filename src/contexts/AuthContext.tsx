@@ -23,23 +23,28 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
 
   const [user, setUser] = useState<User>();
 
+  const setUserStateFromFirebase = (user: firebase.User | undefined | null) => {
+    if (user) {
+
+      const { displayName, photoURL, uid } = user;
+
+      if (!displayName || !photoURL) {
+        throw new Error('Missing information from Google Account');
+      }
+
+      setUser({
+        id: uid,
+        name: displayName,
+        avatar: photoURL,
+      });
+
+    }
+  };
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
-      if (user) {
 
-        const { displayName, photoURL, uid } = user;
-
-        if (!displayName || !photoURL) {
-          throw new Error('Missing information from Google Account');
-        }
-
-        setUser({
-          id: uid,
-          name: displayName,
-          avatar: photoURL,
-        });
-
-      }
+      setUserStateFromFirebase(user);
 
       return () => {
         unsubscribe();
@@ -51,21 +56,7 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
     const provider = new firebase.auth.GoogleAuthProvider();
     const result = await auth.signInWithPopup(provider);
 
-    if (result.user) {
-      const { displayName, photoURL, uid } = result.user;
-
-      if (!displayName || !photoURL) {
-        throw new Error('Missing information from Google Account');
-      }
-
-      console.log(user)
-      setUser({
-        id: uid,
-        name: displayName,
-        avatar: photoURL,
-      });
-
-    }
+    setUserStateFromFirebase(result.user);
 
   }
 
