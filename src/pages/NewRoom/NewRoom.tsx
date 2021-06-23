@@ -11,7 +11,7 @@ import { FormEvent, useState } from "react";
 import { database } from "../../services/firebase";
 import { useAuth } from "../../hooks/useAuth";
 
-export function NewRom() {
+export function NewRoom() {
 
   const { user } = useAuth();
   const [newRoom, setNewRoom] = useState('');
