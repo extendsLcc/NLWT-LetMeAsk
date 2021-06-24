@@ -5,8 +5,8 @@ import { useParams } from "react-router-dom";
 import { database } from "../../services/firebase";
 
 import logoImg from '../../assets/images/logo.svg';
-import { Button } from "../../components/Button/Button";
-import { RoomCode } from "../../components/RoomCode/RoomCode";
+import { Index } from "../../components/Button";
+import { RoomCode } from "../../components/RoomCode";
 
 import './styles.scss';
 
@@ -125,7 +125,7 @@ export function Room() {
             ) : (
               <span>Para enviar uma pergunta, <button>faça seu login</button>.</span>
             )}
-            <Button type="submit" disabled={!user}>Enviar pergunta</Button>
+            <Index type="submit" disabled={!user}>Enviar pergunta</Index>
           </div>
         </form>
 

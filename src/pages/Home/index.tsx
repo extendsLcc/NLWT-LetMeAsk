@@ -5,7 +5,7 @@ import illustrationImg from '../../assets/images/illustration.svg';
 import logoImg from '../../assets/images/logo.svg';
 import googleIconImg from '../../assets/images/google-icon.svg';
 
-import { Button } from "../../components/Button/Button";
+import { Index } from "../../components/Button";
 
 import './styles.scss';
 import { FormEvent, useState } from "react";
@@ -67,7 +67,7 @@ export function Home() {
               onChange={event => setRoomCode(event.target.value)}
               value={roomCode}
             />
-            <Button type="submit">Entrar na sala</Button>
+            <Index type="submit">Entrar na sala</Index>
           </form>
         </div>
       </main>
