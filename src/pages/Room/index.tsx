@@ -5,26 +5,14 @@ import { useParams } from "react-router-dom";
 import { database } from "../../services/firebase";
 
 import logoImg from '../../assets/images/logo.svg';
+
 import { Index } from "../../components/Button";
 import { RoomCode } from "../../components/RoomCode";
+import { Question } from "../../components/Question";
+import { useRoom } from "../../hooks/useRoom";
 
 import './styles.scss';
 
-type QuestionProperties = {
-  author: {
-    name: string;
-    avatar: string;
-  }
-  content: string;
-  isAnswered: boolean;
-  isHighlighted: boolean;
-}
-
-type FirebaseQuestions = Record<string, QuestionProperties>
-
-type Question = QuestionProperties & {
-  id: string;
-}
 
 type RoomParams = {
   id: string;
@@ -36,33 +24,7 @@ export function Room() {
   const params = useParams<RoomParams>();
   const roomId = params.id;
   const [newQuestion, setNewQuestion] = useState('');
-  const [questions, setQuestions] = useState<Question[]>([]);
-  const [title, setTitle] = useState('');
-
-  useEffect(() => {
-    const roomRef = database.ref(`rooms/${roomId}`)
-
-    roomRef.on('value', room => {
-      const databaseRoom = room.val();
-      const firebaseQuestions: FirebaseQuestions = databaseRoom.questions ?? {};
-
-      const parsedQuestions = Object.entries(firebaseQuestions).map(([key, value]) => {
-        const { content, author, isAnswered, isHighlighted } = value;
-        return {
-          id: key,
-          content,
-          author,
-          isAnswered,
-          isHighlighted,
-        }
-      });
-
-      setTitle(databaseRoom.title);
-      setQuestions(parsedQuestions);
-
-    });
-
-  }, [roomId]);
+  const { title, questions } = useRoom(roomId);
 
   async function handleSendQuestion(event: FormEvent) {
 
@@ -129,7 +91,15 @@ export function Room() {
           </div>
         </form>
 
-        {JSON.stringify(questions)}
+        <div className="question-list">
+          {questions.map(question => (
+            <Question
+              key={question.id}
+              content={question.content}
+              author={question.author}
+            />
+          ))}
+        </div>
       </main>
     </div>
   );
