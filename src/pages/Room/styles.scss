@@ -63,23 +63,11 @@
         align-items: center;
         margin-top: 16px;
 
-        .user-info {
-          display: flex;
-          align-items: center;
+        @import "../../styles/partials/user-info";
 
-          img {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-          }
-
-          span {
-            margin-left: 8px;
-            color: #29292e;
-            font-weight: 500;
-            font-size: 14px;
-          }
-
+        .user-info span {
+          color: #737380 !important;
+          font-size: inherit !important;
         }
 
         > span {
@@ -100,6 +88,10 @@
 
       }
 
+    }
+
+    .question-list {
+      margin-top: 32px;
     }
 
   }
