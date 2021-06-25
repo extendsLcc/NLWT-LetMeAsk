@@ -4,7 +4,7 @@ import './styles.scss';
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
-export function Index(props: ButtonProps) {
+export function Button(props: ButtonProps) {
   return (
     <button className="button" {...props} />
   );

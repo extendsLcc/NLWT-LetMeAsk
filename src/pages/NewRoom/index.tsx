@@ -6,7 +6,7 @@ import logoImg from '../../assets/images/logo.svg';
 import '../Home/styles.scss';
 import './styles.scss';
 
-import { Index } from "../../components/Button";
+import { Button } from "../../components/Button";
 import { FormEvent, useState } from "react";
 import { database } from "../../services/firebase";
 import { useAuth } from "../../hooks/useAuth";
@@ -54,7 +54,7 @@ export function NewRoom() {
               onChange={event => setNewRoom(event.target.value)}
               value={newRoom}
             />
-            <Index type="submit">Criar sala</Index>
+            <Button type="submit">Criar sala</Button>
           </form>
           <p>
             Quer entrar em uma sala existente? <Link to="/">clique aqui</Link>

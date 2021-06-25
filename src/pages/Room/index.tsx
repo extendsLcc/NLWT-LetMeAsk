@@ -6,7 +6,7 @@ import { database } from "../../services/firebase";
 
 import logoImg from '../../assets/images/logo.svg';
 
-import { Index } from "../../components/Button";
+import { Button } from "../../components/Button";
 import { RoomCode } from "../../components/RoomCode";
 import { Question } from "../../components/Question";
 import { useRoom } from "../../hooks/useRoom";
@@ -87,7 +87,7 @@ export function Room() {
             ) : (
               <span>Para enviar uma pergunta, <button>faça seu login</button>.</span>
             )}
-            <Index type="submit" disabled={!user}>Enviar pergunta</Index>
+            <Button type="submit" disabled={!user}>Enviar pergunta</Button>
           </div>
         </form>
 
