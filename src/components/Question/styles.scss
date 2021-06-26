@@ -8,6 +8,22 @@
     margin-top: 8px;
   }
 
+  &.highlighted {
+    background: #f4f0ff;
+    border: solid 1px #835afd;
+
+    footer .user-infor span {
+      color: #29292e;
+    }
+
+  }
+
+  &.answered {
+    background: #dbdcdd;
+
+
+  }
+
   p {
     color: #29292e;
   }
@@ -19,6 +35,11 @@
     margin-top: 24px;
 
     @import "../../styles/partials/user-info";
+
+    > div {
+      display: flex;
+      gap: 16px;
+    }
 
     button {
       border: 0;
